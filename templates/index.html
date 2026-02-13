@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Deepfake AI - Ashish Kumar</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- GSAP Core -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- GSAP ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+</head>
+<body>
+
+<div class="cursor"></div>
+
+<!-- HERO -->
+<section class="hero">
+
+    <!-- ORANGE PLANET BACKGROUND -->
+    <div class="planet"></div>
+
+    <h1 class="hero-title">DEEPFAKE AI</h1>
+    <div class="orange-line"></div>
+    <p class="hero-subtitle">Explainable AI Powered Deepfake Detection</p>
+    <a href="#about" class="hero-btn">Explore ↓</a>
+
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+    <h2 data-aos="fade-up">About Me</h2>
+    <div class="orange-line small"></div>
+    <p data-aos="fade-up">
+        I'm Ashish Kumar, a B.Tech student passionate about Artificial Intelligence and real-world AI product development.
+        This project demonstrates deepfake detection using transfer learning and explainable AI techniques.
+    </p>
+</section>
+
+<!-- SERVICES -->
+<section class="section dark">
+    <h2 data-aos="fade-up">What We Offer</h2>
+    <div class="orange-line small"></div>
+
+    <div class="cards">
+        <div class="card" data-aos="fade-up">
+            <h3>Fast Detection</h3>
+            <p>Real-time deepfake classification using MobileNetV2.</p>
+        </div>
+
+        <div class="card" data-aos="fade-up" data-aos-delay="200">
+            <h3>Explainable AI</h3>
+            <p>Grad-CAM visual explanations for model transparency.</p>
+        </div>
+
+        <div class="card" data-aos="fade-up" data-aos-delay="400">
+            <h3>Production Backend</h3>
+            <p>Flask powered architecture ready for deployment.</p>
+        </div>
+    </div>
+</section>
+
+<!-- TECH STACK -->
+<section class="section">
+    <h2 data-aos="fade-up">Tech Stack</h2>
+    <div class="orange-line small"></div>
+    <div class="tech-grid" data-aos="fade-up">
+        <span>Python</span>
+        <span>TensorFlow</span>
+        <span>MobileNetV2</span>
+        <span>Grad-CAM</span>
+        <span>Flask</span>
+        <span>HTML / CSS / JS</span>
+    </div>
+</section>
+
+<!-- ANALYZE -->
+<section class="section dark">
+    <h2 data-aos="fade-up">Run Detection</h2>
+    <div class="orange-line small"></div>
+
+    <div class="glass">
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <button type="submit">Analyze</button>
+        </form>
+    </div>
+
+    {% if uploaded_image %}
+    <div class="results">
+        <div class="image-box">
+            <img src="{{ url_for('static', filename='uploads/' + uploaded_image) }}">
+        </div>
+
+        {% if prediction %}
+        <div class="result-box {{ prediction|lower }}">
+            <h3>{{ prediction }}</h3>
+            <p>Confidence: {{ confidence }}%</p>
+            <p>Risk: {{ risk }}</p>
+            <div class="bar">
+                <div class="bar-fill" style="width: {{ confidence }}%"></div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if heatmap_path %}
+        <div class="image-box">
+            <img src="{{ heatmap_path }}">
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+</section>
+
+<footer>
+    © 2026 Ashish Kumar | Deepfake AI Detection
+</footer>
+
+<!-- Initialize Libraries Properly -->
+<script>
+    gsap.registerPlugin(ScrollTrigger);
+    AOS.init();
+</script>
+
+<!-- Your Main JS -->
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>
